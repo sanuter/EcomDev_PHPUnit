@@ -1,15 +1,18 @@
 <?php
 
-return array(
-    'john_doe' => array(
+return array (
+    'john_doe' =>
+    array (
         'name' => 'John Doe',
-        'is_logged_in' => TRUE
+        'is_logged_in' => true,
     ),
-    'john_doe' => array(
-        'name' => 'John Doe',
-        'is_logged_in' => TRUE
+    'jane_doe' =>
+    array (
+        'name' => 'Jane Doe',
+        'is_logged_in' => true,
     ),
-    'unknown_customer' => array(
-        'is_logged_in' => TRUE
+    'unknown_customer' =>
+    array (
+        'is_logged_in' => false,
     ),
 );
