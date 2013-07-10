@@ -22,7 +22,7 @@ class EcomDev_PHPUnit_Test_Case_Util
 {
     const XML_PATH_DEFAULT_FIXTURE_MODEL = 'phpunit/suite/fixture/model';
     const XML_PATH_DEFAULT_EXPECTATION_MODEL = 'phpunit/suite/expectation/model';
-    const XML_PATH_DEFAULT_YAML_LOADER_MODEL = 'phpunit/suite/yaml/model';
+    const XML_PATH_DEFAULT_ARRAY_LOADER_MODEL = 'phpunit/suite/array/model';
 
     /**
      * List of replaced registry keys for current test case run
@@ -53,11 +53,11 @@ class EcomDev_PHPUnit_Test_Case_Util
     protected static $fixtureModelAlias = null;
 
     /**
-     * Current yaml loader model alias
+     * Current loader model alias
      *
      * @var string
      */
-    protected static $yamlLoaderModelAlias = null;
+    protected static $arrayLoaderModelAlias = null;
 
     /**
      * Module name by class name
@@ -79,41 +79,41 @@ class EcomDev_PHPUnit_Test_Case_Util
     }
 
     /**
-     * Returns yaml loader model instance
+     * Returns array loader model instance
      *
      * @param string|null $testCaseClass
-     * @return EcomDev_PHPUnit_Model_Yaml_Loader
+     * @return EcomDev_PHPUnit_Model_Array_Loader
      */
-    public static function getYamlLoader($testCaseClass = null)
+    public static function getArrayLoader($testCaseClass = null)
     {
         if ($testCaseClass !== null) {
-            self::$yamlLoaderModelAlias = self::getLoadableClassAlias(
+            self::$arrayLoaderModelAlias = self::getLoadableClassAlias(
                 $testCaseClass,
-                'yaml',
-                self::XML_PATH_DEFAULT_YAML_LOADER_MODEL
+                'array',
+                self::XML_PATH_DEFAULT_ARRAY_LOADER_MODEL
             );
-        } elseif (self::$yamlLoaderModelAlias === null) {
-            self::$yamlLoaderModelAlias = self::getLoadableClassAlias(
+        } elseif (self::$arrayLoaderModelAlias === null) {
+            self::$arrayLoaderModelAlias = self::getLoadableClassAlias(
                 get_called_class(), // Just fallback to current test util
-                'yaml',
-                self::XML_PATH_DEFAULT_YAML_LOADER_MODEL
+                'array',
+                self::XML_PATH_DEFAULT_ARRAY_LOADER_MODEL
             );
         }
 
-        return Mage::getSingleton(self::$yamlLoaderModelAlias);
+        return Mage::getSingleton(self::$arrayLoaderModelAlias);
     }
 
     /**
-     * Loads YAML file based on loaders logic
+     * Loads Array file based on loaders logic
      *
      * @param string $className class name for looking fixture files
-     * @param string $type type of YAML data (fixtures,expectations,providers)
+     * @param string $type type of data (fixtures,expectations,providers)
      * @param string $name the file name for loading
      * @return string|boolean
      */
-    public static function getYamlFilePath($className, $type, $name)
+    public static function getArrayFilePath($className, $type, $name)
     {
-        return self::getYamlLoader($className)->resolveFilePath($className, $type, $name);
+        return self::getArrayLoader($className)->resolveFilePath($className, $type, $name);
     }
 
 
@@ -232,16 +232,16 @@ class EcomDev_PHPUnit_Test_Case_Util
 
         if ($annotations = self::getAnnotationByNameFromClass($className, 'dataProviderFile', array('class', 'method'), $testName)) {
             foreach ($annotations as $name) {
-                $filePath = self::getYamlLoader($className)
-                    ->resolveFilePath($className, EcomDev_PHPUnit_Model_Yaml_Loader::TYPE_PROVIDER, $name);
+                $filePath = self::getArrayLoader($className)
+                    ->resolveFilePath($className, EcomDev_PHPUnit_Model_Array_Loader::TYPE_PROVIDER, $name);
                 if (!$filePath) {
                     throw new RuntimeException(sprintf('Unable to load data provider for path %s', $name));
                 }
                 $dataProviderFiles[] = $filePath;
             }
         } else {
-            $filePath = self::getYamlLoader($className)
-                ->resolveFilePath($className, EcomDev_PHPUnit_Model_Yaml_Loader::TYPE_PROVIDER, $testName);
+            $filePath = self::getArrayLoader($className)
+                ->resolveFilePath($className, EcomDev_PHPUnit_Model_Array_Loader::TYPE_PROVIDER, $testName);
 
             if (!$filePath) {
                 throw new RuntimeException('Unable to load data provider for the current test');
@@ -253,7 +253,7 @@ class EcomDev_PHPUnit_Test_Case_Util
 
         $providerData = array();
         foreach ($dataProviderFiles as $file) {
-            $providerData = array_merge_recursive($providerData, self::getYamlLoader()->load($file));
+            $providerData = array_merge_recursive($providerData, self::getArrayLoader()->load($file));
         }
         return $providerData;
     }

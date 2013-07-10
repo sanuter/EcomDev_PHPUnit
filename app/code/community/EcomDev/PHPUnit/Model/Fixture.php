@@ -383,29 +383,29 @@ class EcomDev_PHPUnit_Model_Fixture
             }
 
             $className = (is_string($classOrInstance) ? $classOrInstance : get_class($classOrInstance));
-            $filePath = EcomDev_PHPUnit_Test_Case_Util::getYamlLoader()
-                ->resolveFilePath($className, EcomDev_PHPUnit_Model_Yaml_Loader::TYPE_FIXTURE, $fixture);
+            $filePath = EcomDev_PHPUnit_Test_Case_Util::getArrayLoader()
+                ->resolveFilePath($className, EcomDev_PHPUnit_Model_Array_Loader::TYPE_FIXTURE, $fixture);
 
             if (!$filePath) {
                 throw new RuntimeException('Unable to load fixture for test');
             }
 
-            $this->loadYaml($filePath);
+            $this->loadArray($filePath);
         }
 
         return $this;
     }
 
     /**
-     * Load YAML file
+     * Load Array file
      *
      * @param string $filePath
      * @return EcomDev_PHPUnit_Model_Fixture
-     * @throws InvalidArgumentException if file is not a valid YAML file
+     * @throws InvalidArgumentException if file is not a valid file
      */
-    public function loadYaml($filePath)
+    public function loadArray($filePath)
     {
-        $data = EcomDev_PHPUnit_Test_Case_Util::getYamlLoader()->load($filePath);
+        $data = EcomDev_PHPUnit_Test_Case_Util::getArrayLoader()->load($filePath);
 
         if (empty($this->_fixture)) {
             $this->_fixture = $data;

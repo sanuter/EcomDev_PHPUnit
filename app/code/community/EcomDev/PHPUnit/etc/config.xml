@@ -63,6 +63,14 @@
                     <global>ecomdev_phpunit/yaml_loader_global</global>
                 </loaders>
             </yaml>
+            <array>
+                <model>ecomdev_phpunit/array_loader</model>
+                <loaders>
+                    <default>ecomdev_phpunit/array_loader_default</default>
+                    <module>ecomdev_phpunit/array_loader_module</module>
+                    <global>ecomdev_phpunit/array_loader_global</global>
+                </loaders>
+            </array>
             <!-- The names of directories inside Test for recognizion of tests per group -->
             <groups>
                 <models>Model</models>

@@ -635,57 +635,57 @@ abstract class EcomDev_PHPUnit_Test_Case extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Protected wrapper for _getYamlFilePath method. Backward campatibility.
+     * Protected wrapper for _getArrayFilePath method. Backward campatibility.
      *
-     * @see EcomDev_PHPUnit_Test_Case::getYamlFilePath()
+     * @see EcomDev_PHPUnit_Test_Case::getArrayFilePath()
      *
-     * @param string $type type of YAML data (fixtures,expectations,dataproviders)
+     * @param string $type type of data (fixtures,expectations,dataproviders)
      * @param string|null $name the file name for loading, if equals to null,
      *                          the current test name will be used
      * @return string|boolean
      * @deprecated since 0.2.0
      */
-    protected function _getYamlFilePath($type, $name = null)
+    protected function _getArrayFilePath($type, $name = null)
     {
-        return $this->getYamlFilePath($type, $name);
+        return $this->getArrayFilePath($type, $name);
     }
 
     /**
-     * Loads YAML file from directory inside of the unit test class
+     * Loads file from directory inside of the unit test class
      *
-     * @param string $type type of YAML data (fixtures,expectations,dataproviders)
+     * @param string $type type of data (fixtures,expectations,dataproviders)
      * @param string|null $name the file name for loading, if equals to null,
      *                          the current test name will be used
      * @return string|boolean
      */
-    public function getYamlFilePath($type, $name = null)
+    public function getArrayFilePath($type, $name = null)
     {
         if ($name === null) {
             $name = $this->getName(false);
         }
 
-        return TestUtil::getYamlFilePath(get_called_class(), $type, $name);
+        return TestUtil::getArrayFilePath(get_called_class(), $type, $name);
     }
 
     /**
-     * Loads YAML file from directory inside of the unit test class or
+     * Loads file from directory inside of the unit test class or
      * the directory inside the module directory if name is prefixed with ~/
      * or from another module if name is prefixed with ~My_Module/
      *
      * @param string $className class name for looking fixture files
-     * @param string $type type of YAML data (fixtures,expectations,dataproviders)
+     * @param string $type type of data (fixtures,expectations,dataproviders)
      * @param string $name the file name for loading
      * @return string|boolean
      * @depracated since 0.3.0
      */
-    public static function getYamlFilePathByClass($className, $type, $name)
+    public static function getArrayFilePathByClass($className, $type, $name)
     {
-        return TestUtil::getYamlFilePath($className, $type, $name);
+        return TestUtil::getArrayFilePath($className, $type, $name);
     }
 
     /**
      * Implements default data provider functionality,
-     * returns array data loaded from Yaml file with the same name as test method
+     * returns array data loaded from file with the same name as test method
      *
      * @param string $testName
      * @return array

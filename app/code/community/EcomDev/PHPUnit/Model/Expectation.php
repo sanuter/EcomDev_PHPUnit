@@ -11,7 +11,7 @@ class EcomDev_PHPUnit_Model_Expectation
     protected $_dataObjectIds = array();
 
     /**
-     * Loaded data from Yaml files
+     * Loaded data from files
      *
      * @var Varien_Object
      */
@@ -135,9 +135,9 @@ class EcomDev_PHPUnit_Model_Expectation
                 $expectation = $testCase->getName(false);
             }
 
-            $expectationFile = EcomDev_PHPUnit_Test_Case_Util::getYamlLoader(get_class($testCase))
+            $expectationFile = EcomDev_PHPUnit_Test_Case_Util::getArrayLoader(get_class($testCase))
                 ->resolveFilePath(
-                    get_class($testCase), EcomDev_PHPUnit_Model_Yaml_Loader::TYPE_EXPECTATION, $expectation
+                    get_class($testCase), EcomDev_PHPUnit_Model_Array_Loader::TYPE_EXPECTATION, $expectation
                 );
 
             if (!$expectationFile) {
@@ -149,7 +149,7 @@ class EcomDev_PHPUnit_Model_Expectation
             }
 
             $expectationData = array_merge_recursive(
-                $expectationData, EcomDev_PHPUnit_Test_Case_Util::getYamlLoader()->load($expectationFile)
+                $expectationData, EcomDev_PHPUnit_Test_Case_Util::getArrayLoader()->load($expectationFile)
             );
         }
 

@@ -25,16 +25,17 @@
  * @helper catalog
  * @registry key
  *
- * or by specifying it in Yaml file:
+ * or by specifying it in file:
  *
  * registry:
- *  singleton:
- *     - catalog/product_type
- *  resource:
- *     - catalog/product
- *  helper
- *     - catalog
- *     - core/url
+ * array(
+ * 'singleton' => catalog/product_type',
+ * 'resource' => 'catalog/product',
+ * 'helper' => array(
+ *     'catalog'
+ *     'core/url'
+ *     )
+ * )
  *
  */
 class EcomDev_PHPUnit_Model_Fixture_Processor_Registry implements EcomDev_PHPUnit_Model_Fixture_Processor_Interface
